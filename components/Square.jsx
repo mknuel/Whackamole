@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import { addStore } from "../redux/action";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { increment } from "../redux/slices/score";
+
 const Square = () => {
 	const [moleActive, setMoleActive] = useState(false);
 	const [isGameOver, SetGameOver] = useState(false);
+	const score = useSelector((state) => state?.score?.value);
 	let timerId;
 	const randomTime = Math.random() * 20000;
+	const dispatch = useDispatch();
 	useEffect(() => {
 		timerId = setInterval(() => {
 			setMoleActive(true);
@@ -23,10 +26,15 @@ const Square = () => {
 		SetGameOver(true);
 	};
 
+	const addScore = () => {
+		dispatch(increment());
+	};
 	return (
-		<View style={moleActive ? styles.mole : styles.square}>
-			{isGameOver && <Text>X</Text>}
-		</View>
+		<TouchableOpacity onPress={moleActive ? addScore : () => {}}>
+			<View style={moleActive ? styles.mole : styles.square}>
+				{isGameOver && <Text>X</Text>}
+			</View>
+		</TouchableOpacity>
 	);
 };
 
@@ -48,16 +56,5 @@ const styles = StyleSheet.create({
 	},
 });
 
-const mapStateToProps = (state) => {
-	return {
-		score: state.score,
-	};
-};
+export default Square;
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		addScore: () => dispatch(addStore()),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Square);

@@ -1,0 +1,7 @@
+{
+	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+	"editor.foldingImportsByDefault": true,
+	"editor.smoothScrolling": true,
+	"editor.stickyTabStops": true,
+	"editor.stickyScroll.enabled": true
+}

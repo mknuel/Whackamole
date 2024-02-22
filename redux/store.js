@@ -1,4 +1,10 @@
-import { createStore } from "redux";
-import { scoreReducer } from "./reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import scoreReducer from "./slices/score";
 
-export const store = createStore(scoreReducer);
+const store = configureStore({
+	reducer: {
+		score: scoreReducer,
+	},
+});
+
+export default store;

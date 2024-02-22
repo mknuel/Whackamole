@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Square from "./Square";
-
+import { useSelector } from "react-redux";
 const GameBoard = () => {
 	const [timeLeft, setTimeLeft] = useState(11);
-
+	const score = useSelector((state) => state.score.value);
 	useEffect(() => {
 		if (!timeLeft) {
 			return;
@@ -21,6 +21,7 @@ const GameBoard = () => {
 		<View style={styles.container}>
 			<Text>Mk whackamole app!</Text>
 			<Text>{timeLeft}</Text>
+			<Text>{score}</Text>
 			<View style={styles.game}>
 				<Square />
 				<Square />
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#fff",
 		alignItems: "center",
-		justifyContent: "center",
+		marginTop: "100px",
 	},
 
 	game: {
